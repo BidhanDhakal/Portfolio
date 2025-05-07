@@ -555,7 +555,7 @@
             }, 2000);
         });
 
-        // Tip button functionality
+
         const tipBtn = document.querySelector('.tip-btn');
         const tipContent = document.querySelector('.tip-content');
         const overlay = document.querySelector('.overlay');
@@ -586,7 +586,7 @@
         let remainingX = 3;
         let remainingO = 3;
         let is3x3Mode = false;
-        let moveHistory = []; // Track move history for 3x3 mode
+        let moveHistory = [];
 
         const xImage = new Image();
         xImage.src = 'images/cross.png';
@@ -616,7 +616,7 @@
 
             if (is3x3Mode) {
                 if (currentPlayer === 'X' && remainingX <= 0) {
-                    // Remove the oldest X move
+
                     const oldestXIndex = moveHistory.find(move => gameBoard[move] === 'X');
                     if (oldestXIndex !== undefined) {
                         gameBoard[oldestXIndex] = '';
@@ -741,7 +741,7 @@
                 index = getImpossibleMove();
                 isAgainstBot = true;
                 if (index === null || index === undefined) {
-                    // If no valid move found, try to move an existing O piece
+
                     if (remainingO <= 0) {
                         const oldestOIndex = moveHistory.find(move => gameBoard[move] === 'O');
                         if (oldestOIndex !== undefined) {
@@ -778,7 +778,6 @@
         }
 
         function getImpossibleMove() {
-            // First check for winning move
             for (let i = 0; i < 9; i++) {
                 if (gameBoard[i] === '') {
                     gameBoard[i] = 'O';
@@ -790,7 +789,7 @@
                 }
             }
 
-            // Then block opponent's winning move
+
             for (let i = 0; i < 9; i++) {
                 if (gameBoard[i] === '') {
                     gameBoard[i] = 'X';
@@ -802,7 +801,6 @@
                 }
             }
 
-            // Otherwise make strategic move
             const strategicPositions = [4, 0, 2, 6, 8, 1, 3, 5, 7];
             for (let pos of strategicPositions) {
                 if (gameBoard[pos] === '') {
