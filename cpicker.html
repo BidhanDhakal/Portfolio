@@ -288,7 +288,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize variables
+
         const redSlider = document.getElementById('redSlider');
         const greenSlider = document.getElementById('greenSlider');
         const blueSlider = document.getElementById('blueSlider');
@@ -302,7 +302,6 @@
         const colorSchemes = document.getElementById('colorSchemes');
         let colorHistoryArray = [];
 
-        // Update color function
         function updateColor(saveToHistory = true) {
             const r = parseInt(redSlider.value);
             const g = parseInt(greenSlider.value);
@@ -312,20 +311,17 @@
             const color = `rgba(${r}, ${g}, ${b}, ${a})`;
             colorDisplay.style.backgroundColor = color;
 
-            // Update value displays
             document.getElementById('redValue').textContent = r;
             document.getElementById('greenValue').textContent = g;
             document.getElementById('blueValue').textContent = b;
             document.getElementById('alphaValue').textContent = Math.round(a * 100);
 
-            // Convert to hex
             const hex = rgbToHex(r, g, b);
             hexValue.textContent = hex;
 
-            // Update RGB value
             rgbValue.textContent = color;
 
-            // Convert to HSL and update
+
             const hsl = rgbToHsl(r, g, b);
             hslValue.textContent = `hsl(${Math.round(hsl.h)}deg, ${Math.round(hsl.s)}%, ${Math.round(hsl.l)}%)`;
 
@@ -334,7 +330,6 @@
             }
         }
 
-        // Color conversion functions
         function rgbToHex(r, g, b) {
             return '#' + [r, g, b].map(x => {
                 const hex = x.toString(16);
@@ -370,7 +365,7 @@
             };
         }
 
-        // Add color to history
+
         function addToHistory(color) {
             if (colorHistoryArray.includes(color)) return;
             
@@ -400,7 +395,6 @@
             });
         }
 
-        // Copy color values
         [hexValue, rgbValue, hslValue].forEach(element => {
             element.addEventListener('click', () => {
                 navigator.clipboard.writeText(element.textContent).then(() => {
@@ -412,7 +406,6 @@
             });
         });
 
-        // Random color generator
         document.getElementById('randomColor').addEventListener('click', () => {
             redSlider.value = Math.floor(Math.random() * 256);
             greenSlider.value = Math.floor(Math.random() * 256);
@@ -420,7 +413,7 @@
             updateColor();
         });
 
-        // Generate color schemes
+
         document.getElementById('generateScheme').addEventListener('click', () => {
             const r = parseInt(redSlider.value);
             const g = parseInt(greenSlider.value);
@@ -516,12 +509,12 @@
             };
         }
 
-        // Add event listeners
+
         [redSlider, greenSlider, blueSlider, alphaSlider].forEach(slider => {
             slider.addEventListener('input', () => updateColor());
         });
 
-        // Add eyedropper functionality
+
         const eyedropperBtn = document.getElementById('eyedropper');
         if ('EyeDropper' in window) {
             eyedropperBtn.addEventListener('click', async () => {
@@ -544,7 +537,6 @@
             eyedropperBtn.style.display = 'none';
         }
 
-        // Add hex to RGB conversion
         function hexToRgb(hex) {
             const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
             return result ? {
@@ -554,7 +546,6 @@
             } : null;
         }
 
-        // Add save color functionality
         document.getElementById('saveColor').addEventListener('click', () => {
             const canvas = document.createElement('canvas');
             canvas.width = 100;
@@ -571,13 +562,12 @@
             }
         });
 
-        // Initialize AOS
         AOS.init({
             duration: 800,
             once: true
         });
 
-        // Initial update
+
         updateColor();
     </script>
 </body>
