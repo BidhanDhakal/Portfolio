@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World Time Analog Clock</title>
@@ -166,6 +167,7 @@
             animation: moveCircleSmall 15s infinite alternate;
             transition: transform 0.1s ease-out;
         }
+        
 
         .background-circle:nth-child(2) {
             width: min(300px, 80vw); /* Medium circle */
@@ -426,7 +428,7 @@
         const themeToggle = document.getElementById('theme-toggle');
         let selectedTimezone;
 
-        // Theme toggle
+
         themeToggle.addEventListener('change', function(e) {
             if(e.target.checked) {
                 document.body.classList.add('light-theme');
@@ -435,7 +437,6 @@
             }
         });
 
-        // Water effect
         document.addEventListener('mousemove', (e) => {
             const waterEffect = document.querySelector('.water-effect');
             const x = e.clientX;
@@ -444,19 +445,17 @@
             waterEffect.style.setProperty('--x', x + 'px');
             waterEffect.style.setProperty('--y', y + 'px');
 
-            // Create ripple effect
             const ripple = document.createElement('div');
             ripple.className = 'ripple';
             ripple.style.left = x + 'px';
             ripple.style.top = y + 'px';
             document.body.appendChild(ripple);
 
-            // Remove ripple after animation
             ripple.addEventListener('animationend', () => {
                 ripple.remove();
             });
 
-            // Move background circles slightly based on cursor position
+
             const circles = document.querySelectorAll('.background-circle');
             circles.forEach((circle, index) => {
                 const factor = (index + 1) * 0.02;
@@ -466,7 +465,6 @@
             });
         });
 
-        // Populate timezone dropdown
         function populateTimezones() {
             const timezones = Intl.supportedValuesOf('timeZone');
             timezones.forEach(timezone => {
@@ -477,19 +475,19 @@
             });
         }
 
-        // Get user's timezone
+
         function getUserTimezone() {
             return Intl.DateTimeFormat().resolvedOptions().timeZone;
         }
 
-        // Set default timezone
+
         function setDefaultTimezone() {
             const userTimezone = getUserTimezone();
             timezoneSelect.value = userTimezone;
             selectedTimezone = userTimezone;
         }
 
-        // Get user's location
+
         function getUserLocation() {
             if ("geolocation" in navigator) {
                 navigator.geolocation.getCurrentPosition(function(position) {
@@ -525,7 +523,6 @@
             const minutes = time.getMinutes();
             const hours = time.getHours();
 
-            // Calculate degrees with milliseconds for smoother second hand movement
             const secondDegrees = ((seconds + now.getMilliseconds() / 1000) / 60) * 360;
             const minuteDegrees = ((minutes + seconds / 60) / 60) * 360;
             const hourDegrees = ((hours % 12 + minutes / 60) / 12) * 360;
@@ -534,12 +531,12 @@
             document.querySelector('.minute').style.transform = `translateX(-50%) rotate(${minuteDegrees}deg)`;
             document.querySelector('.hour').style.transform = `translateX(-50%) rotate(${hourDegrees}deg)`;
 
-            // Update digital time to match analog clock
+
             const formattedHours = hours % 12 || 12;
             const ampm = hours >= 12 ? 'PM' : 'AM';
             digitalTime.textContent = `${formattedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
 
-            // Update clock numbers
+
             const numbers = document.querySelectorAll('.number span');
             numbers.forEach((number, index) => {
                 const numberHour = (index === 0) ? 12 : index;
@@ -572,7 +569,7 @@
             setTimeout(updateClock, 50);
         });
 
-        // Initialize
+
         populateTimezones();
         setDefaultTimezone();
         updateClock();
